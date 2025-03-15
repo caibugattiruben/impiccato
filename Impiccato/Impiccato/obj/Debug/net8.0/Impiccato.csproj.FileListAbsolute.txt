@@ -27,3 +27,4 @@ C:\Users\caibugatti.ruben\Documents\GitHub\impiccato\Impiccato\Impiccato\obj\Deb
 C:\Users\caibugatti.ruben\Documents\GitHub\impiccato\Impiccato\Impiccato\obj\Debug\net8.0\Impiccato.pdb
 C:\Users\caibugatti.ruben\Documents\GitHub\impiccato\Impiccato\Impiccato\obj\Debug\net8.0\Impiccato.genruntimeconfig.cache
 C:\Users\caibugatti.ruben\Documents\GitHub\impiccato\Impiccato\Impiccato\obj\Debug\net8.0\ref\Impiccato.dll
+C:\Users\Ruben\Desktop\impiccato\Impiccato\Impiccato\obj\Debug\net8.0\Impiccato.sourcelink.json
