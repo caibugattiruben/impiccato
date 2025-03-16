@@ -2,6 +2,7 @@
 
 
 
+
 void creoMatrice(string[,] NomiCompleti,string path)
 {
     string[] nomi1;
@@ -94,58 +95,186 @@ char[] trasformo(string parola)
 }
 void gioco(string parola,char[] parolaT,int vita)
 {
+    Random rnd = new Random();
     bool uscire = false,indovinato=false;
     string lettere="";
+    int jolly = 1;
+    int n=0;
     while(vita>0 && uscire==false && indovinato == false)
     {
+        Console.WriteLine("Le tue vite rimaste sono: " + vita);
+        Console.WriteLine("Le tue lettere jolly rimaste sono: " + jolly);
+        Console.Write("la tua parola è: ");
+        for (int i = 0; i < parola.Length; i++)
+        {
+            Console.Write(parolaT[i]);
+        }
+        Console.WriteLine();
+        Console.WriteLine("Le lettere già inserite sono " + lettere);
         Console.WriteLine("cosa vuoi fare questo turno\n1. Dire una lettera\n2. Indizio\n3. Lettera jolly\n4.Indovinare la parola\n5. Chiudere");
         Console.Write("Dimmi il numero della tua azione: ");
         int azione=int.Parse(Console.ReadLine());
+        
         switch (azione)
         {
             case 1:
+                bool contiene = false,contienel=false;
+                int contienetrat = 0;
+                string pos = "";
+                int cont = 0;
+                contiene = false;
+                cont = 0;
+                contienel = false;
+                contiene = false;
+                contienetrat = 0;
                 Console.Write("Dimmi la lettera che stavi pensando ");
                 string lettera = Console.ReadLine();
                 Console.WriteLine();
-                string pos = "";
-                for(int i = 0; i < parola.Length; i++)
+                for (int i = 0; i < parola.Length; i++)
                 {
                     if (lettera[0] == parola[i])
                     {
-                        pos += i;
+                        contiene = true;
                     }
                 }
-                if (pos.Length > 0)
+                if (contiene == true)
                 {
-                    if (pos.Length > 1)
+                    for(int i = 0; i < parola.Length; i++)
                     {
-                        for(int i = 0;i < pos.Length; i++)
+                        if (lettera[0] == parola[i])
                         {
-                            int o =int.Parse(pos[i].ToString()); ;
-                            parolaT[o] = parola[o];
+                            if (pos.Length == 0)
+                            {
+                                pos += i;
+                            }
+                            else
+                            {
+                                pos += "," + i;
+                            }
+
                         }
                     }
-                    else
+                    string[] posArray = pos.Split(','); 
+                    for (int i = 0; i < posArray.Length; i++)
                     {
-                        parolaT[pos[0]-1] = parola[pos[0]-1];
+                        int pos1 = int.Parse(posArray[i]); 
+                        parolaT[pos1] = parola[pos1]; 
                     }
-                    Console.Write("HAI INDOVINATO LA LETTERA. LA TUA PAROLA ORA E' ");
-                    for(int i = 0; i < parolaT.Length; i++)
+                    Console.Write("HAI INDOVINATO LA TUA PAROLA ADESSO E': ");
+                    for (int i = 0; i < parola.Length; i++)
                     {
-                        Console.Write(parolaT[i]);
+                        Console.Write (parolaT[i]);
                     }
                     Console.WriteLine();
+
                 }
                 else
                 {
-                    Console.WriteLine("la lettera non è presente nella parola misteriosa");
-                }
-
+                    Console.WriteLine("la lettera da te inserita non è presente nella parola");
+                    if (lettere.Length == 0)
+                    {
+                        lettere += lettera;
+                    }
+                    else
+                    {
+                        for (int i = 0;i < lettere.Length; i++)
+                        {
+                            if (lettera[0] == lettere[i])
+                            {
+                                contienel=true;
+                            }
+                        }
+                        if (contienel == true)
+                        {
+                            Console.WriteLine("HAI GIA' INSERITO QUESTA LETTERA");
+                        }
+                        else
+                        {
+                            lettere += ", " + lettera;
+                        }
                         
+                    }
+                    vita--;
+                    
+                }
+                
+                for (int i = 0; i < parolaT.Length; i++)
+                {
+                    if (parolaT[i] != '_')
+                    {
+                        contienetrat++;
+                    }
+                }
+                if (contienetrat == parolaT.Length)
+                {
+                    indovinato = true;
+                }
                 break;
-        }
+            case 2:
+                break;
+            case 3:
+                if (jolly > 0)
+                {
+                    Console.WriteLine("Hai deciso di usare la lettera jolly");
+                    bool ok = false;
+                    while (ok == false)
+                    {
+                        int posizione = rnd.Next(0, parola.Length);
+                        for(int i=0; i < parola.Length; i++)
+                        {
+                            if (parolaT[posizione] == '_')
+                            {
+                                parolaT[posizione] = parola[posizione];
+                                ok = true;
+                                jolly -= 1;
+                                i = parola.Length;
+                            }
+                            else
+                            {
+                                posizione = rnd.Next(0, parola.Length);
+                            }
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    Console.WriteLine("Non hai lettere jolly a disposizione");
+                }
+                break;
+            case 4:
+                Console.Write("Dimmi questa parola ");
+                string p = Console.ReadLine();
+                Console.WriteLine();
+                if (p == parola)
+                {
+                    Console.WriteLine("HAI INDOVINATO");
+                    indovinato = true;
+                }
+                else
+                {
+                    Console.WriteLine("non ci hai preso");
+                    vita--;
+                }
+                break;
+            case 5:
+                Console.WriteLine("hai deciso di uscire dal gioco... scarso");
+                uscire = true;
+                break;
             
+        }
+        Console.WriteLine();
+
     }
+    if (indovinato == true)
+    {
+        Console.WriteLine("Complimenti hai indovinato la parola");
+    }
+    else if (vita <= 0)
+    {
+        Console.WriteLine("Mi dispiace hai perso finendo le vite");
+    }
+
 }
 Random rnd = new Random();
 string[,] nomi=new string[7,51];
@@ -171,15 +300,7 @@ else
 {
     parola = scelgoParolaEN(nomi);
 }
-Console.WriteLine(parola);
 char[] parolaT=trasformo(parola);
-
-for (int i = 0; i < 2; i++)
-{
-    pos = rnd.Next(0, parola.Length);
-    parolaT[pos] = parola[pos];
-}
-Console.WriteLine(parolaT);
 if (risposta == "i")
 {
     Console.WriteLine("dimmi la difficoltà \n 1. Facile (10 tentativi)\n 2. Medio (5 tentativi)\n 3.Difficile (3 tentativi)\n 4. Impossibile (1 tentativo)\n digita il numero corrispondente se sbagli verrà scelto facile");
@@ -230,5 +351,10 @@ else
         vita = 10;
         Console.WriteLine("You chose Medium, your life is 10");
     }
+}
+for (int i = 0; i < 2; i++)
+{
+    pos = rnd.Next(0, parola.Length);
+    parolaT[pos] = parola[pos];
 }
 gioco(parola, parolaT,vita);
