@@ -113,7 +113,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
             Console.WriteLine("Le tue vite rimaste sono: " + vita);
             Console.WriteLine("Le tue lettere jolly rimaste sono: " + jolly);
             Console.WriteLine("Le tue monete rimaste sono: " + monete);
-            Console.WriteLine("Le lettere già inserite sono " + lettere);
+            Console.WriteLine("Le lettere già inserite sono: " + lettere);
             Console.WriteLine("Cosa vuoi fare questo turno\n1. Dire una lettera\n2. Indizio\n3. Lettera jolly\n4. Indovinare la parola\n5. Chiudere");
             Console.Write("Dimmi il numero della tua azione: ");
             int azione = int.Parse(Console.ReadLine());
@@ -142,6 +142,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                     }
                     if (contiene == true)
                     {
+                        lettere += lettera;
                         for (int i = 0; i < parola.Length; i++)
                         {
                             if (lettera[0] == parola[i])
@@ -162,6 +163,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                         {
                             int pos1 = int.Parse(posArray[i]);
                             parolaT[pos1] = parola[pos1];
+                            
                         }
                         Console.Write("HAI INDOVINATO LA LETTERA LA TUA PAROLA ADESSO E': ");
                         for (int i = 0; i < parola.Length; i++)
@@ -313,7 +315,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                         bool ok = false;
                         while (ok == false)
                         {
-                            int posizione = rnd.Next(0, parola.Length);
+                            int posizione = rnd.Next(1, parola.Length-1);
                             for (int i = 0; i < parola.Length; i++)
                             {
                                 if (parolaT[posizione] == '_')
@@ -381,9 +383,6 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
             Console.WriteLine("Mi dispiace hai perso finendo le vite");
         }
     }
-    
-
-
 void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,ref bool uscire)
 {
     Random rnd = new Random();
@@ -432,6 +431,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                 }
                 if (contiene == true)
                 {
+                    lettere += lettera;
                     for (int i = 0; i < parola.Length; i++)
                     {
                         if (lettera[0] == parola[i])
@@ -515,7 +515,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                     Console.WriteLine("The available clues are:");
                     for (int i = 0; i < indizi.Length; i++)
                     {
-                        Console.WriteLine(i + ". " + indizi[i]);
+                        Console.WriteLine(i+1 + ". " + indizi[i]);
                     }
                     Console.WriteLine("Tell me the position of the clue");
                     int posi = int.Parse(Console.ReadLine());
@@ -603,7 +603,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                     bool ok = false;
                     while (ok == false)
                     {
-                        int posizione = rnd.Next(0, parola.Length);
+                        int posizione = rnd.Next(1, parola.Length-1);
                         for (int i = 0; i < parola.Length; i++)
                         {
                             if (parolaT[posizione] == '_')
@@ -665,22 +665,20 @@ string[,] nomi=new string[7,51];
 string path,parola,tema="";
 bool uscire = false;
 int pos = 0,vita=0;
-
-Console.WriteLine("Il gioco lo vuoi in italiano o in inglese (i o e) (se sbagli verrà scelto inglese)");
-string risposta = Console.ReadLine();
-risposta = risposta.Trim().ToLower();
-if (risposta == "i")
-{
-    path = "nomi.txt";
-}
-else
-{
-   path = "nomiEN.txt";
-}
-creoMatrice(nomi, path);
-
 while (uscire == false)
 {
+    Console.WriteLine("Il gioco lo vuoi in italiano o in inglese (i o e) (se sbagli verrà scelto inglese)");
+    string risposta = Console.ReadLine();
+    risposta = risposta.Trim().ToLower();
+    if (risposta == "i")
+    {
+        path = "nomi.txt";
+    }
+    else
+    {
+        path = "nomiEN.txt";
+    }
+    creoMatrice(nomi, path);
     if (risposta == "i")
     {
         parola = scelgoParola(nomi, ref tema);
