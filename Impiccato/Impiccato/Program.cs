@@ -507,17 +507,17 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                 int utilizzabili = 0;
                 if (monete < 5)
                 {
-                    Console.WriteLine("Le tue monete sono insufficenti");
+                    Console.WriteLine("Your coins are insufficient");
                 }
                 else
                 {
-                    Console.WriteLine("Hai scelto un indizio");
-                    Console.WriteLine("Gli indizi disponibili sono:");
+                    Console.WriteLine("You have chosen a clue");
+                    Console.WriteLine("The available clues are:");
                     for (int i = 0; i < indizi.Length; i++)
                     {
                         Console.WriteLine(i + ". " + indizi[i]);
                     }
-                    Console.WriteLine("Dimmi la posizione dell'indizio");
+                    Console.WriteLine("Tell me the position of the clue");
                     int posi = int.Parse(Console.ReadLine());
                     switch (posi)
                     {
@@ -525,34 +525,42 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                             utilizzabili = 15;
                             if (monete < utilizzabili)
                             {
-                                Console.WriteLine("Non hai abbastanza monete");
+                                Console.WriteLine("You don't have enough coins");
                             }
                             else
                             {
-                                Console.WriteLine("Hai utilizzato tema della parola");
-                                Console.WriteLine("il tema della parola è: " + tema);
-                                indizi[0] = "";
-                                monete -= 15;
+                                if (indizi[0] != "")
+                                {
+                                    Console.WriteLine("You have used the word's theme");
+                                    Console.WriteLine("The theme of the word is: " + tema);
+                                    indizi[0] = "";
+                                    monete -= 15;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You have already used this clue");
+                                }
+                                
                             }
                             break;
                         case 2:
                             utilizzabili = 10;
                             if (monete < utilizzabili)
                             {
-                                Console.WriteLine("Non hai abbastanza monete");
+                                Console.WriteLine("You don't have enough coins");
                             }
                             else
                             {
                                 if (indizi[1] != "")
                                 {
-                                    Console.WriteLine("Hai utilizzato prima lettera");
+                                    Console.WriteLine("You have used the first letter");
                                     parolaT[0] = parola[0];
                                     indizi[1] = "";
                                     monete -= 10;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Hai h   ");
+                                    Console.WriteLine("You have already used this clue");
                                 }
 
                             }
@@ -561,26 +569,26 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                             utilizzabili = 5;
                             if (monete < utilizzabili)
                             {
-                                Console.WriteLine("Non hai abbastanza monete");
+                                Console.WriteLine("You don't have enough coins");
                             }
                             else
                             {
                                 if (indizi[2] != "")
                                 {
-                                    Console.WriteLine("Hai utilizzato ultima lettera della parola");
+                                    Console.WriteLine("You have used the last letter of the word");
                                     parolaT[parolaT.Length - 1] = parola[parola.Length - 1];
                                     indizi[2] = "";
                                     monete -= 5;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("");
+                                    Console.WriteLine("You have already used this clue");
                                 }
 
                             }
                             break;
                         default:
-                            Console.WriteLine("hai sbagliato ad inserire");
+                            Console.WriteLine("You have made a mistake in inserting");
                             break;
                     }
                 }
@@ -591,7 +599,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
             case 3:
                 if (jolly > 0)
                 {
-                    Console.WriteLine("Hai deciso di usare la lettera jolly");
+                    Console.WriteLine("You have decided to use the wildcard letter");
                     bool ok = false;
                     while (ok == false)
                     {
@@ -615,26 +623,26 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                 }
                 else
                 {
-                    Console.WriteLine("Non hai lettere jolly a disposizione");
+                    Console.WriteLine("You don't have any wildcard letters available");
                 }
                 break;
             case 4:
-                Console.Write("Dimmi questa parola ");
+                Console.Write("Tell me this word: ");
                 string p = Console.ReadLine();
                 Console.WriteLine();
                 if (p == parola)
                 {
-                    Console.WriteLine("HAI INDOVINATO");
+                    Console.WriteLine("YOU GUESSED IT");
                     indovinato = true;
                 }
                 else
                 {
-                    Console.WriteLine("non ci hai preso");
+                    Console.WriteLine("You didn't get it right");
                     vita--;
                 }
                 break;
             case 5:
-                Console.WriteLine("hai deciso di uscire dal gioco... scarso");
+                Console.WriteLine("You decided to quit the game... poor");
                 uscire = true;
                 break;
 
@@ -644,11 +652,11 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
     }
     if (indovinato == true)
     {
-        Console.WriteLine("Complimenti hai indovinato la parola");
+        Console.WriteLine("Congratulations, you guessed the word");
     }
     else if (vita <= 0)
     {
-        Console.WriteLine("Mi dispiace hai perso finendo le vite");
+        Console.WriteLine("I'm sorry, you lost by running out of lives");
     }
  
 }
@@ -742,19 +750,19 @@ while (uscire == false)
         {
             vita = 3;
             monete = 10;
-            Console.WriteLine("You chose Medium, your life is 3 and your coins are 10");
+            Console.WriteLine("You chose Hard, your life is 3 and your coins are 10");
         }
         else if (risposta1 == 4)
         {
             vita = 1;
             monete = 5;
-            Console.WriteLine("You chose Medium, your life is 1 and your coins are 5");
+            Console.WriteLine("You chose Impossible, your life is 1 and your coins are 5");
         }
         else
         {
             vita = 10;
             monete = 30;
-            Console.WriteLine("You chose Medium, your life is 10 and your coins are 30");
+            Console.WriteLine("You chose Easy, your life is 10 and your coins are 30");
         }
         giocoEN(parola, parolaT, vita, monete, tema, ref uscire);
     }
