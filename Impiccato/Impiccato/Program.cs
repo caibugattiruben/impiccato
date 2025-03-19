@@ -1,4 +1,5 @@
-﻿void creoMatrice(string[,] NomiCompleti,string path)
+﻿using System.Drawing;
+void creoMatrice(string[,] NomiCompleti,string path)
 {
     string[] nomi1;
     StreamReader r = new StreamReader(path);
@@ -105,11 +106,14 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
         while (vita > 0 && uscire == false && indovinato == false)
         {
             Console.Write("la tua parola è: ");
-            for (int i = 0; i < parola.Length; i++)
+        Console.ForegroundColor = ConsoleColor.Green;
+        for (int i = 0; i < parola.Length; i++)
             {
+                
                 Console.Write(parolaT[i]);
             }
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Le tue vite rimaste sono: " + vita);
             Console.WriteLine("Le tue lettere jolly rimaste sono: " + jolly);
             Console.WriteLine("Le tue monete rimaste sono: " + monete);
@@ -350,8 +354,8 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                     else
                     {
                         Console.WriteLine("non ci hai preso");
-                        vita--;
-                    }
+                     vita --;
+                }
                     break;
                 case 5:
                     Console.WriteLine("hai deciso di uscire dal gioco... scarso");
@@ -382,7 +386,8 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
         {
             Console.WriteLine("Mi dispiace hai perso finendo le vite");
         }
-    }
+    Console.WriteLine("La parola era " + parola);
+}
 void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,ref bool uscire)
 {
     Random rnd = new Random();
@@ -394,11 +399,14 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
     while (vita > 0 && uscire == false && indovinato == false)
     {
         Console.Write("Your word is: ");
+        Console.ForegroundColor = ConsoleColor.Green;
         for (int i = 0; i < parola.Length; i++)
         {
+
             Console.Write(parolaT[i]);
         }
         Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("The remaining lives: " + vita);
         Console.WriteLine("Your remaining wildcard letters: " + jolly);
         Console.WriteLine("Your remaining coins: " + monete);
@@ -654,19 +662,21 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
     {
         Console.WriteLine("Congratulations, you guessed the word");
     }
-    else if (vita <= 0)
+    else if (vita<= 0)
     {
         Console.WriteLine("I'm sorry, you lost by running out of lives");
     }
- 
+    Console.WriteLine("The word was " + parola);
 }
 Random rnd = new Random();
 string[,] nomi=new string[7,51];
 string path,parola,tema="";
 bool uscire = false;
 int pos = 0,vita=0;
+
 while (uscire == false)
 {
+    Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine("Il gioco lo vuoi in italiano o in inglese (i o e) (se sbagli verrà scelto inglese)");
     string risposta = Console.ReadLine();
     risposta = risposta.Trim().ToLower();
@@ -705,24 +715,42 @@ while (uscire == false)
     int monete = 0;
     if (risposta == "i")
     {
-        Console.WriteLine("dimmi la difficoltà \n 1. Facile (10 tentativi)(30 monete)\n 2. Medio (5 tentativi)(20 monete)\n 3.Difficile (3 tentativi)(10 monete)\n 4. Impossibile (1 tentativo)(5 monete)\n digita il numero corrispondente se sbagli verrà scelto facile");
+        
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("dimmi la difficoltà:");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("1. Facile (10 tentativi)(30 monete)");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("2. Medio (5 tentativi)(20 monete)");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("3. Difficile (3 tentativi)(10 monete)");
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.WriteLine("4. Impossibile (1 tentativo)(5 monete)");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("digita il numero corrispondente se sbagli verrà scelto facile");
         int risposta1 = int.Parse(Console.ReadLine());
         if (risposta1 == 2)
         {
             vita = 5;
             monete = 20;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
             Console.WriteLine("hai scelto Medio la tua vita è 5 e le tue monete sono 20");
         }
         else if (risposta1 == 3)
         {
             vita = 3;
             monete = 10;
+            Console.ForegroundColor = ConsoleColor.Red;
+
             Console.WriteLine("hai scelto Difficile la tua vita è 3 e le tue monete sono 10");
         }
         else if (risposta1 == 4)
         {
             vita = 1;
             monete = 5;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+
             Console.WriteLine("hai scelto Impossibile la tua vita è 1 e le tue monete sono 5");
 
         }
@@ -730,38 +758,66 @@ while (uscire == false)
         {
             vita = 10;
             monete = 30;
+            Console.ForegroundColor = ConsoleColor.Green;
+
             Console.WriteLine("hai scelto Facile la tua vita è 10 e le tue monete sono 30");
         }
+        Console.ForegroundColor = ConsoleColor.White;
+        
         gioco(parola, parolaT, vita, monete, tema, ref uscire);
     }
     else
     {
-        Console.WriteLine("Choose the difficulty:\n1. Easy (10 attempts)(30 coins)\n2. Medium (5 attempts)(20 coins)\n3.Hard (3 attempts)(10 coins)\n4. Impossible (1 attempt)(5 coins)\nType the corresponding number, if you make a mistake, easy will be chosen.");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("Choose the difficulty:");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("1. Easy(10 attempts)(30 coins)");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("2. Medium (5 attempts)(20 coins)");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("3. Hard (3 attempts)(10 coins)");
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.WriteLine("4. Impossible (1 attempt)(5 coins)");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("Type the corresponding number, if you make a mistake, easy will be chosen.");
         int risposta1 = int.Parse(Console.ReadLine());
         if (risposta1 == 2)
         {
             vita = 5;
             monete = 20;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("You chose Medium, your life is 5 and your coins are 20");
+         
         }
         else if (risposta1 == 3)
         {
             vita = 3;
             monete = 10;
+            Console.ForegroundColor = ConsoleColor.Red;
+
             Console.WriteLine("You chose Hard, your life is 3 and your coins are 10");
+            
         }
         else if (risposta1 == 4)
         {
             vita = 1;
             monete = 5;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+
             Console.WriteLine("You chose Impossible, your life is 1 and your coins are 5");
+            
         }
         else
         {
             vita = 10;
             monete = 30;
+            Console.ForegroundColor = ConsoleColor.Green;
+
             Console.WriteLine("You chose Easy, your life is 10 and your coins are 30");
+            
         }
+        Console.ForegroundColor = ConsoleColor.White;
+        
         giocoEN(parola, parolaT, vita, monete, tema, ref uscire);
     }
     

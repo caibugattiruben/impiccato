@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Impiccato")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e04dca8f3b597f3c5d73a09b261fefd9a63082d9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+535b400aada1b91bc556d55f6daf548c42d6d2fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Impiccato")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Impiccato")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
