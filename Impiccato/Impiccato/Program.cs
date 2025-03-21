@@ -86,7 +86,7 @@ string scelgoParolaEN(string[,] m,ref string tema)
 }
 char[] trasformo(string parola)
 {
-    char[] parolafatta=new char[parola.Length];
+    char[] parolafatta = new char[parola.Length];
     for (int i = 0; i < parola.Length; i++)
     {
         parolafatta[i] = '_';
@@ -146,7 +146,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                     }
                     if (contiene == true)
                     {
-                        lettere += lettera;
+                        lettere += ", "+lettera;
                         for (int i = 0; i < parola.Length; i++)
                         {
                             if (lettera[0] == parola[i])
@@ -182,7 +182,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                         Console.WriteLine("la lettera da te inserita non è presente nella parola");
                         if (lettere.Length == 0)
                         {
-                            lettere += lettera;
+                            lettere += ", "+lettera;
                         }
                         else
                         {
@@ -427,7 +427,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                 contienel = false;
                 contiene = false;
                 contienetrat = 0;
-                Console.Write("Tell me the letter you were thinking of");
+                Console.Write("Tell me the letter you were thinking of: ");
                 string lettera = Console.ReadLine();
                 Console.WriteLine();
                 for (int i = 0; i < parola.Length; i++)
@@ -439,7 +439,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                 }
                 if (contiene == true)
                 {
-                    lettere += lettera;
+                    lettere += ", "+lettera;
                     for (int i = 0; i < parola.Length; i++)
                     {
                         if (lettera[0] == parola[i])
@@ -474,7 +474,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                     Console.WriteLine("The letter you entered is not present in the word.");
                     if (lettere.Length == 0)
                     {
-                        lettere += lettera;
+                        lettere += ", " + lettera;
                     }
                     else
                     {
@@ -676,6 +676,7 @@ int pos = 0,vita=0;
 
 while (uscire == false)
 {
+    parola = "";
     Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine("Il gioco lo vuoi in italiano o in inglese (i o e) (se sbagli verrà scelto inglese)");
     string risposta = Console.ReadLine();
