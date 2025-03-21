@@ -46,7 +46,7 @@ string scelgoParola(string[,] m,ref string tema)
     {
         riga=rnd.Next(0,7);
     }
-    colonna=rnd.Next(1,52);
+    colonna=rnd.Next(1,51);
     tema = m[riga, 0];
     parola = m[riga, colonna];
     return parola;
@@ -79,7 +79,7 @@ string scelgoParolaEN(string[,] m,ref string tema)
     {
         riga = rnd.Next(0, 7);
     }
-    colonna = rnd.Next(1, 52);
+    colonna = rnd.Next(1, 51);
     tema = m[riga, 0];
     parola = m[riga, colonna];
     return parola;
@@ -89,7 +89,15 @@ char[] trasformo(string parola)
     char[] parolafatta = new char[parola.Length];
     for (int i = 0; i < parola.Length; i++)
     {
-        parolafatta[i] = '_';
+        if (parola[i]==' ')
+        {
+            parolafatta[i] = ' ';
+        }
+        else
+        {
+            parolafatta[i] = '_';
+        }
+            
     }
     return parolafatta;
         
@@ -146,8 +154,16 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                     }
                     if (contiene == true)
                     {
-                        lettere += ", "+lettera;
-                        for (int i = 0; i < parola.Length; i++)
+                    if (lettere.Length == 0)
+                    {
+                        lettere += lettera;
+                    }
+                    else
+                    {
+                        lettere += ", " + lettera;
+                    }
+
+                    for (int i = 0; i < parola.Length; i++)
                         {
                             if (lettera[0] == parola[i])
                             {
@@ -157,6 +173,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                                 }
                                 else
                                 {
+                               
                                     pos += "," + i;
                                 }
 
@@ -182,7 +199,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
                         Console.WriteLine("la lettera da te inserita non è presente nella parola");
                         if (lettere.Length == 0)
                         {
-                            lettere += ", "+lettera;
+                            lettere += lettera;
                         }
                         else
                         {
@@ -439,7 +456,14 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                 }
                 if (contiene == true)
                 {
-                    lettere += ", "+lettera;
+                    if (lettere.Length == 0)
+                    {
+                        lettere += lettera;
+                    }
+                    else
+                    {
+                        lettere += ", " + lettera;
+                    }
                     for (int i = 0; i < parola.Length; i++)
                     {
                         if (lettera[0] == parola[i])
@@ -474,7 +498,7 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
                     Console.WriteLine("The letter you entered is not present in the word.");
                     if (lettere.Length == 0)
                     {
-                        lettere += ", " + lettera;
+                        lettere += lettera;
                     }
                     else
                     {
@@ -821,7 +845,7 @@ while (uscire == false)
         
         giocoEN(parola, parolaT, vita, monete, tema, ref uscire);
     }
-    
-   
+
+
 
 }
