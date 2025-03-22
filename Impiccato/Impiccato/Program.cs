@@ -71,6 +71,7 @@ string scelgoParolaEN(string[,] m,ref string tema)
             {
                 riga = i;
             }
+            
         }
 
 
@@ -97,12 +98,11 @@ char[] trasformo(string parola)
         {
             parolafatta[i] = '_';
         }
-            
     }
     return parolafatta;
         
 }
-void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool uscire)
+void gioco(string parola, char[] parolaT, int vita, int monete, string tema, ref bool uscire, ref string parole)
 {
     Random rnd = new Random();
     bool indovinato=false;
@@ -383,21 +383,19 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
             Console.WriteLine();
 
         }
-        for(int i = 0; i < parola.Length; i++)
-        {
-            if (parolaT[i] == parola[i])
-            {
-                indovinato = true;
-            }
-            else
-            {
-                indovinato = false;
-                i = parola.Length;
-            }
-        }
+        
         if (indovinato == true)
         {
             Console.WriteLine("Complimenti hai indovinato la parola");
+            if (parole.Length == 0)
+            {
+                parole += parola;
+            }
+            else
+            {
+                parole += ", " + parola;
+            }
+
         }
         else if (vita <= 0)
         {
@@ -405,7 +403,7 @@ void gioco(string parola,char[] parolaT,int vita,int monete,string tema,ref bool
         }
     Console.WriteLine("La parola era " + parola);
 }
-void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,ref bool uscire)
+void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,ref bool uscire,ref string parole)
 {
     Random rnd = new Random();
     bool indovinato = false;
@@ -685,6 +683,14 @@ void giocoEN(string parola, char[] parolaT, int vita, int monete, string tema,re
     if (indovinato == true)
     {
         Console.WriteLine("Congratulations, you guessed the word");
+        if (parole.Length == 0)
+        {
+            parole += parola;
+        }
+        else
+        {
+            parole += ", " + parola;
+        }
     }
     else if (vita<= 0)
     {
@@ -697,7 +703,8 @@ string[,] nomi=new string[7,51];
 string path,parola,tema="";
 bool uscire = false;
 int pos = 0,vita=0;
-
+string parole = "";
+Console.WriteLine("------------------------------GIOCO DELL'IMPICCATO------------------------------");
 while (uscire == false)
 {
     parola = "";
@@ -789,7 +796,7 @@ while (uscire == false)
         }
         Console.ForegroundColor = ConsoleColor.White;
         
-        gioco(parola, parolaT, vita, monete, tema, ref uscire);
+        gioco(parola, parolaT, vita, monete, tema, ref uscire,ref  parole);
     }
     else
     {
@@ -843,9 +850,14 @@ while (uscire == false)
         }
         Console.ForegroundColor = ConsoleColor.White;
         
-        giocoEN(parola, parolaT, vita, monete, tema, ref uscire);
+        giocoEN(parola, parolaT, vita, monete, tema, ref uscire, ref parole);
     }
-
-
-
+    if (parole.Length == 0)
+    {
+        Console.WriteLine("Non hai indovinato parole fino ad ora");
+    }
+    else
+    {
+        Console.WriteLine("Le parole indovinate fino ad ora sono: " + parole);
+    } 
 }
